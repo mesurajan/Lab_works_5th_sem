@@ -5,7 +5,7 @@
 
 // Function to compute modular inverse of a number under MOD 26
 int modInverse(int a) {
-    for (int i = 1; i < MOD; i++) {
+    for (int i = 1; i < MOD; i++) {  
         if ((a * i) % MOD == 1)
             return i;
     }
