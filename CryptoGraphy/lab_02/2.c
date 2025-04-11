@@ -1,185 +1,156 @@
 //2. Write a c program to implement play fair cipher.
-#include <stdio.h>
-#include <string.h>
+#include<stdio.h>
+#include<string.h>
+#include<ctype.h>
 
-#define SIZE 5
+char keyMatrix[5][5];
 
-int main() {
-    char key[100], plaintext[100], ciphertext[100],dplaintext[100];
-    char matrix[SIZE][SIZE];
-    int visited[26] = {0}; // To track visited letters
-    int i, j, k = 0, length, row1, col1, row2, col2;
-    char pair[2];
+void generateMatrix(char key[]) {
+    int i, j, k = 0;
+    int alpha[26] = {0};
 
-    // Input the key and the plaintext
-    printf("Enter the key: ");
-    fgets(key, sizeof(key), stdin);
-    key[strcspn(key, "\n")] = '\0';  // Remove newline character
-
-    printf("Enter the plaintext: ");
-    fgets(plaintext, sizeof(plaintext), stdin);
-    plaintext[strcspn(plaintext, "\n")] = '\0';  // Remove newline character
-
-    // Step 1: Preprocess the key and remove duplicates
-    char key_modified[strlen(key) + 1];
-    for (i = 0; key[i] != '\0'; i++) {
-        // Manually convert to uppercase
-        if (key[i] >= 'a' && key[i] <= 'z') {
-            key_modified[i] = key[i] - 'a' + 'A';
-        } else {
-            key_modified[i] = key[i];
-        }
+    for(i = 0; i < strlen(key); i++) {
+        if(key[i] == 'j') key[i] = 'i'; // j is treated as i
     }
-    key_modified[i] = '\0';
 
-    // Step 2: Fill the matrix with the key letters first
-    
-    k = 0;
-    for (i = 0; i < strlen(key_modified); i++) {
-        if (key_modified[i] != 'J' && !visited[key_modified[i] - 'A']) {
-            visited[key_modified[i] - 'A'] = 1;
-            matrix[k / SIZE][k % SIZE] = key_modified[i];
+    for(i = 0; i < strlen(key); i++) {
+        if(alpha[key[i]-'a'] == 0) {
+            keyMatrix[k/5][k%5] = key[i];
+            alpha[key[i]-'a'] = 1;
             k++;
         }
     }
 
-    // Step 3: Fill the remaining spots with the rest of the alphabet
-    for (i = 0; i < 26; i++) {
-        if (i != 'J' - 'A' && !visited[i]) {
-            matrix[k / SIZE][k % SIZE] = 'A' + i;
+    for(i = 0; i < 26; i++) {
+        if(i + 'a' == 'j') continue;
+        if(alpha[i] == 0) {
+            keyMatrix[k/5][k%5] = i + 'a';
             k++;
         }
     }
+}
 
-    // Step 4: Preprocess the plaintext (convert to uppercase and handle duplicate letters)
-    length = strlen(plaintext);
-    for (i = 0; i < length; i++) {
-        // Manually convert to uppercase
-        if (plaintext[i] >= 'a' && plaintext[i] <= 'z') {
-            plaintext[i] = plaintext[i] - 'a' + 'A';
-        }
-    }
-
-    // Handle duplicate letters in plaintext
-    for (i = 0; i < length - 1; i++) {
-        if (plaintext[i] == plaintext[i + 1]) {
-            for (j = length; j > i + 1; j--) {
-                plaintext[j] = plaintext[j - 1];
-            }
-            plaintext[i + 1] = 'X';  // Insert 'X' between duplicate letters
-            length++;
-        }
-    }
-
-    // If the length of plaintext is odd, append 'X'
-    if (length % 2 != 0) {
-        plaintext[length] = 'X';  // Add 'X' if length is odd
-        plaintext[length + 1] = '\0';
-        length++;
-    }
-
-    // Step 5: Encrypt the message
-    k = 0;
-    for (i = 0; i < length; i += 2) {
-        pair[0] = plaintext[i];
-        pair[1] = plaintext[i + 1];
-
-        // Find positions of the pair letters in the matrix
-        for (int row = 0; row < SIZE; row++) {
-            for (int col = 0; col < SIZE; col++) {
-                if (matrix[row][col] == pair[0]) {
-                    row1 = row;
-                    col1 = col;
-                }
-                if (matrix[row][col] == pair[1]) {
-                    row2 = row;
-                    col2 = col;
-                }
-            }
-        }
-
-        // Apply Playfair cipher rules
-        if (row1 == row2) {
-            // Same row: Move to the right
-            col1 = (col1 + 1) % SIZE;
-            col2 = (col2 + 1) % SIZE;
-        } else if (col1 == col2) {
-            // Same column: Move down
-            row1 = (row1 + 1) % SIZE;
-            row2 = (row2 + 1) % SIZE;
-        } else {
-            // Rectangle: Swap the corners
-            int temp = col1;
-            col1 = col2;
-            col2 = temp;
-        }
-
-        // Store the result pair in the ciphertext
-        ciphertext[k++] = matrix[row1][col1];
-        ciphertext[k++] = matrix[row2][col2];
-    }
-    ciphertext[k] = '\0';
-
-    // Print the Playfair matrix
-    printf("\nPlayfair Matrix:\n");
-    for (i = 0; i < SIZE; i++) {
-        for (j = 0; j < SIZE; j++) {
-            printf("%c ", matrix[i][j]);
+void displayMatrix() {
+    printf("Key Matrix:\n");
+    for(int i = 0; i < 5; i++) {
+        for(int j = 0; j < 5; j++) {
+            printf("%c ", keyMatrix[i][j]);
         }
         printf("\n");
     }
+}
 
-    
-// Step 6: Decrypt the message
-    k = 0;
-    for (i = 0; i < length; i += 2) {
-        pair[0] = ciphertext[i];
-        pair[1] = ciphertext[i + 1];
-
-        // Find positions of the pair letters in the matrix
-        for (int row = 0; row < SIZE; row++) {
-            for (int col = 0; col < SIZE; col++) {
-                if (matrix[row][col] == pair[0]) {
-                    row1 = row;
-                    col1 = col;
-                }
-                if (matrix[row][col] == pair[1]) {
-                    row2 = row;
-                    col2 = col;
-                }
+void search(char a, char b, int pos[]) {
+    int i, j;
+    for(i = 0; i < 5; i++) {
+        for(j = 0; j < 5; j++) {
+            if(keyMatrix[i][j] == a) {
+                pos[0] = i;
+                pos[1] = j;
+            }
+            if(keyMatrix[i][j] == b) {
+                pos[2] = i;
+                pos[3] = j;
             }
         }
-
-        // Apply Playfair cipher rules
-        if (row1 == row2) {
-            // Same row: Move to the left
-            col1 = (col1 - 1) % SIZE;
-            col2 = (col2 - 1) % SIZE;
-        } else if (col1 == col2) {
-            // Same column: Move up
-            row1 = (row1 - 1) % SIZE;
-            row2 = (row2 - 1) % SIZE;
-        } else {
-            // Rectangle: Swap the corners
-            int temp = col1;
-            col1 = col2;
-            col2 = temp;
-        }
-
-        // Store the result pair in the ciphertext
-        dplaintext[k++] = matrix[row1][col1];
-        dplaintext[k++] = matrix[row2][col2];
     }
-    dplaintext[k] = '\0';
+}
 
+void encrypt(char pt[]) {
+    int i, pos[4];
+    int len = strlen(pt);
 
-    // Output the ciphertext
-    printf("-------------Encryption-----------");
+    printf("\nEncrypted Text: ");
+    for(i = 0; i < len; i += 2) {
+        char a = pt[i];
+        char b = (i+1 < len) ? pt[i+1] : 'x';
+        if(a == b) b = 'x';
 
-    printf("\nCiphertext: %s\n", ciphertext);
-    //plaintext output
-    printf("-------------Decryption-----------");
-    printf("\nPlaintext: %s\n",dplaintext);
+        search(a, b, pos);
+
+        if(pos[0] == pos[2]) {
+            printf("%c%c", keyMatrix[pos[0]][(pos[1]+1)%5], keyMatrix[pos[2]][(pos[3]+1)%5]);
+        } else if(pos[1] == pos[3]) {
+            printf("%c%c", keyMatrix[(pos[0]+1)%5][pos[1]], keyMatrix[(pos[2]+1)%5][pos[3]]);
+        } else {
+            printf("%c%c", keyMatrix[pos[0]][pos[3]], keyMatrix[pos[2]][pos[1]]);
+        }
+    }
+    printf("\n");
+}
+
+void decrypt(char ct[]) {
+    int i, pos[4];
+    int len = strlen(ct);
+
+    printf("\nDecrypted Text: ");
+    for(i = 0; i < len; i += 2) {
+        char a = ct[i];
+        char b = (i+1 < len) ? ct[i+1] : 'x';
+
+        search(a, b, pos);
+
+        if(pos[0] == pos[2]) {
+            printf("%c%c", keyMatrix[pos[0]][(pos[1]+4)%5], keyMatrix[pos[2]][(pos[3]+4)%5]);
+        } else if(pos[1] == pos[3]) {
+            printf("%c%c", keyMatrix[(pos[0]+4)%5][pos[1]], keyMatrix[(pos[2]+4)%5][pos[3]]);
+        } else {
+            printf("%c%c", keyMatrix[pos[0]][pos[3]], keyMatrix[pos[2]][pos[1]]);
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    char key[50], pt[100], cleanPT[100], ct[100] = "";
+    int i, j = 0;
+
+    printf("Playfair Cipher:\n");
+    printf("Enter key: ");
+    scanf("%s", key);
+    printf("Enter plaintext (lowercase only): ");
+    scanf("%s", pt);
+
+    // Preprocess plaintext
+    for(i = 0; pt[i]; i++) {
+        if(pt[i] == 'j') pt[i] = 'i';
+        if(isalpha(pt[i])) cleanPT[j++] = pt[i];
+    }
+    cleanPT[j] = '\0';
+
+    generateMatrix(key);
+    displayMatrix();
+
+    printf("\nOriginal Text: %s", cleanPT);
+
+    printf("\n");
+    encrypt(cleanPT);
+
+    // Encrypt into ct for reuse in decryption
+    j = 0;
+    for(i = 0; i < strlen(cleanPT); i += 2) {
+        char a = cleanPT[i];
+        char b = (i+1 < strlen(cleanPT)) ? cleanPT[i+1] : 'x';
+        if(a == b) b = 'x';
+
+        int pos[4];
+        search(a, b, pos);
+
+        if(pos[0] == pos[2]) {
+            ct[j++] = keyMatrix[pos[0]][(pos[1]+1)%5];
+            ct[j++] = keyMatrix[pos[2]][(pos[3]+1)%5];
+        } else if(pos[1] == pos[3]) {
+            ct[j++] = keyMatrix[(pos[0]+1)%5][pos[1]];
+            ct[j++] = keyMatrix[(pos[2]+1)%5][pos[3]];
+        } else {
+            ct[j++] = keyMatrix[pos[0]][pos[3]];
+            ct[j++] = keyMatrix[pos[2]][pos[1]];
+        }
+    }
+    ct[j] = '\0';
+
+    decrypt(ct);
 
     return 0;
 }
+
