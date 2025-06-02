@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us - BrightFuture Inc</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Contact Us - BrightFuture Inc</h1>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p>Have a question? Reach out to us below!</p>
+    </section>
+
+    <form id="contactForm" novalidate>
+      <div class="form-group">
+        <label for="name">Name *</label>
+        <input type="text" id="name" name="name" required placeholder="Your Name" />
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Subject *</label>
+        <input type="text" id="subject" name="subject" required placeholder="Subject (5-50 characters)" />
+      </div>
+
+      <fieldset class="form-group">
+        <legend>Message Category *</legend>
+        <label><input type="radio" name="category" value="Support" /> Support</label>
+        <label><input type="radio" name="category" value="Sales" /> Sales</label>
+        <label><input type="radio" name="category" value="Feedback" /> Feedback</label>
+      </fieldset>
+
+      <div class="form-group">
+        <label for="message">Message *</label>
+        <textarea id="message" name="message" rows="5" required placeholder="Your message (min 10 characters)"></textarea>
+      </div>
+
+      <fieldset class="form-group">
+        <legend>Preferred Contact Method *</legend>
+        <label><input type="checkbox" name="contactMethod" value="Email" /> Email</label>
+        <label><input type="checkbox" name="contactMethod" value="Phone" /> Phone</label>
+      </fieldset>
+
+      <div class="form-group">
+        <button type="submit">Send Message</button>
+      </div>
+
+      <p id="feedback" class="feedback"></p>
+    </form>
+  </main>
+
+  <footer>
+    <p>© Surajan Shrestha. All inquiries welcome.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
