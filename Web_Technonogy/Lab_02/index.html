@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job Application Form - ABC Corp</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Job Application Form - ABC Corp</h1>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p>Join our team! Please fill out the form below to apply.</p>
+    </section>
+
+    <form action="#" method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="fullName">Full Name *</label>
+        <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" required placeholder="yourname@example.com" />
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="e.g. +1234567890" />
+      </div>
+
+      <div class="form-group">
+        <label for="position">Position Applying For *</label>
+        <select id="position" name="position" required>
+          <option value="">--Select Position--</option>
+          <option value="software-engineer">Software Engineer</option>
+          <option value="marketing-specialist">Marketing Specialist</option>
+          <option value="customer-support">Customer Support</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="experience">Years of Experience *</label>
+        <input type="number" id="experience" name="experience" required min="0" placeholder="e.g. 3" />
+      </div>
+
+      <div class="form-group">
+        <label for="resume">Upload Resume *</label>
+        <input type="file" id="resume" name="resume" required accept=".pdf, .docx" />
+      </div>
+
+      <div class="form-group">
+        <label for="employment-type">Employment Type *</label>
+        <select id="employment-type" name="employmentType" required>
+          <option value="">--Select Type--</option>
+          <option value="fulltime">Full Time</option>
+          <option value="parttime">Part Time</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <button type="submit">Submit Application</button>
+      </div>
+    </form>
+  </main>
+
+  <footer>
+    <p>&copy;Surajan Shrestha. All rights reserved.</p>
+  </footer>
+</body>
+</html>
