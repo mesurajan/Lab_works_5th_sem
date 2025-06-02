@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+    <book>
+        <title>Web Tech</title>
+        <author>John Doe</author>
+        <price>25</price>
+    </book>
+    <book>
+        <title>PHP Basics</title>
+        <author>Jane Smith</author>
+        <price>30</price>
+    </book>
+    <book>
+        <title>XML Guide</title>
+        <author>Sam Lee</author>
+        <price>20</price>
+    </book>
+</library>

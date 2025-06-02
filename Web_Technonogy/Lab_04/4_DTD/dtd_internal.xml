@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE classroom [
+    <!ELEMENT classroom (student+)>
+    <!ELEMENT student (name, age)>
+    <!ELEMENT name (#PCDATA)>
+    <!ELEMENT age (#PCDATA)>
+    <!ATTLIST student id CDATA #REQUIRED>
+]>
+<classroom>
+    <student id="S01">
+        <name>John</name>
+        <age>20</age>
+    </student>
+    <student id="S02">
+        <name>Mary</name>
+        <age>21</age>
+    </student>
+</classroom>

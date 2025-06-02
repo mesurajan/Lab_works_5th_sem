@@ -1,0 +1,11 @@
+<course xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="course.xsd">
+    <student id="S01">
+        <name>John</name>
+        <age>20</age>
+    </student>
+    <student id="S02">
+        <name>Mary</name>
+        <age>21</age>
+    </student>
+</course>

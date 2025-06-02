@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:sch="http://example.com/school" xmlns:sto="http://example.com/store">
+    <sch:item>
+        <sch:name>John</sch:name>
+        <sch:grade>A</sch:grade>
+    </sch:item>
+    <sto:item>
+        <sto:name>Laptop</sto:name>
+        <sto:price>800</sto:price>
+    </sto:item>
+</root>

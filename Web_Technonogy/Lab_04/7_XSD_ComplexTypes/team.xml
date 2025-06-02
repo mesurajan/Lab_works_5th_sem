@@ -1,0 +1,11 @@
+<team xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="team.xsd">
+    <member>
+        <name>John</name>
+        <role>Leader</role>
+    </member>
+    <member>
+        <name>Mary</name>
+        <skill>Coding</skill>
+    </member>
+</team>

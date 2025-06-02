@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="students.xsl"?>
+<students>
+    <student>
+        <name>John</name>
+        <grade>A</grade>
+    </student>
+    <student>
+        <name>Mary</name>
+        <grade>B</grade>
+    </student>
+</students>

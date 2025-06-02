@@ -1,0 +1,14 @@
+<products>
+    <product>
+        <name>Book</name>
+        <price>25</price>
+    </product>
+    <product>
+        <name>Laptop</name>
+        <price>800</price>
+    </product>
+    <product>
+        <name>Pen</name>
+        <price>10</price>
+    </product>
+</products>

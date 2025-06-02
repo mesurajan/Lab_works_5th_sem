@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AJAX Example</title>
+</head>
+<body>
+    <button onclick="fetchData()">Get Message</button>
+    <div id="result"></div>
+    <script>
+        function fetchData() {
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", "data.txt", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById("result").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+for $p in doc("products.xml")/products/product
+where $p/price < 50
+return $p/name
